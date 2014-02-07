@@ -1,3 +1,5 @@
+#Sieve of Eratosthenes to calculate prime numbers up to a given N
+
 import math
 
 i = 2
