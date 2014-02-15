@@ -3,8 +3,12 @@ n = 13195
 # determines the largest prime factor of x
 def lpf(x):
     # the smallest prime factor is 2
+    # set the potential largest prime factor to 2 and start the algorithm
     lpf = 2
 
+    # x represents our current largest factor
+    # lpf will help calculate whether the current largest factor is prime
+    # if x is equal to lpf, we will have found our prime
     while x > lpf:
         if x % lpf == 0:
             print '1. x is ', x
