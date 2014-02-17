@@ -1,35 +1,35 @@
 n = 13195
 
-# determines the largest prime factor of x
-def lpf(x):
-    # the smallest prime factor is 2
-    # set the potential largest prime factor to 2 and start the algorithm
-    lpf = 2
+# determines the largest prime factor of the input integer
 
-    # x represents our current largest factor
-    # lpf will help calculate whether the current largest factor is prime
-    # if x is equal to lpf, we will have found our prime
-    while x > lpf:
-        if x % lpf == 0:
-            print '1. x is ', x
-            print '1. lpf is ', lpf
-            x = x / lpf
-            print '2. x/lpf is ', x
-            lpf = 2
-            print 'Set lpf to %d' % lpf
+# largest_factor represents our current largest factor
+# smallest_divisor will help calculate whether the current largest factor is prime
+# if largest_factor is equal to smallest_divisor, it is a prime number
+def lpf(largest_factor):
+
+    # the smallest possible non-trivial divisor is 2
+    smallest_divisor = 2
+
+    while largest_factor > smallest_divisor:
+        if largest_factor % smallest_divisor == 0:
+            print 'largest_factor %d is evenly divisible by smallest_divisor %d' % (largest_factor, smallest_divisor)
+            largest_factor = largest_factor / smallest_divisor
+            print 'largest_factor/smallest_divisor = ', largest_factor
+            smallest_divisor = 2
+            # print 'Set smallest_divisor to %d' % smallest_divisor
             print ''
         else: 
-            print 'x = %d, not evenly divisible by the current lpf = %d' % (x, lpf)
-            lpf += 1
-            print 'Set lpf to %d' % lpf
-            print ''
+            # print 'largest_factor = %d, not evenly divisible by the current smallest_divisor = %d' % (largest_factor, smallest_divisor)
+            smallest_divisor += 1
+            # print 'Set smallest_divisor to %d' % smallest_divisor
+            # print ''
 
-    print '%d is not larger than %d' %(x, lpf)
-    print 'Largest Prime Factor: %d' % lpf
+    print 'largest_factor %d is not larger than smallest_divisor %d, so largest_factor is prime' %(largest_factor, smallest_divisor)
+    return largest_factor
 
 def main():
     # n = int(raw_input("This script will calculate the largest prime factor of n. n = ? "))
-    lpf(n)
+    print lpf(n)
 
 if __name__ == '__main__':
     main()
