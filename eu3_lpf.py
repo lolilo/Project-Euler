@@ -10,7 +10,7 @@ def lpf(largest_factor):
     # the smallest possible non-trivial divisor is 2
     smallest_divisor = 2
 
-    while largest_factor > smallest_divisor:
+    while largest_factor != smallest_divisor:
         if largest_factor % smallest_divisor == 0:
             print 'largest_factor %d is evenly divisible by smallest_divisor %d' % (largest_factor, smallest_divisor)
             largest_factor = largest_factor / smallest_divisor
@@ -24,7 +24,7 @@ def lpf(largest_factor):
             # print 'Set smallest_divisor to %d' % smallest_divisor
             # print ''
 
-    print 'largest_factor %d is not larger than smallest_divisor %d, so largest_factor is prime' %(largest_factor, smallest_divisor)
+    print 'largest_factor %d is equal to smallest_divisor %d, so largest_factor is prime' %(largest_factor, smallest_divisor)
     return largest_factor
 
 def main():
