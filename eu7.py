@@ -1,9 +1,8 @@
-prime_list = [2]
 potential_prime = 3
 counter = 1
 final_number = 0
 
-while counter != 6:
+while counter != 10001:
     
     prime_check = 2
     isPrime = True
