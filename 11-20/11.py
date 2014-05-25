@@ -23,89 +23,105 @@ grid = """
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
-
 # make array of arrays -- matrix
 # ennumerate all possiblities and keep track of largest sum in a variable
 
-def greatest_product(grid):
+test = """
+1 2 3
+4 5 6
+7 8 9"""
 
-	grid = grid.split()
+# create matrix from number strings in a nxn matrix format
+def create_matrix(grid, n):
+	grid = grid.split() # creates list of num strings
 	i = 0
 	matrix = []
+	row_length = n
 
-	# create matrix
-	while i < len(grid):
-		row = grid[i:i+20]
-		for n in xrange(len(row)):
-			row[n] = int(row[n])
+	while i < len(grid): # while i < number of rows 
+		row = grid[i:i+row_length] # up to but not including row_length index, 0 to row_length - 1
+		# convert everything to integers
+		for j in xrange(len(row)):
+			row[j] = int(row[j])
+		
 		matrix.append(row) 
-		i += 21
+		i += row_length
 
-	greatest_product = 1
+	return matrix
 
-	# rows ~ O(n^2)
-	for row in matrix:
-		i = 0
-		while i < len(row) - 3:
-			product = reduce(lambda x, y: x*y, row[i:i+4])
+def greatest_product(grid, prod_size):
 
-			if product > greatest_product:
-				greatest_product = product
-			product = 1
-			i += 1
+	pass
 
-	# columns. O(n^3)
-	for column in xrange(20):
-		i = 0
-		end = i + 3
 
-		while i < 20 - 3: # all the off-by-one errors
 
-			while i < end: 
-				product *= matrix[i][column]
-				i += 1
+	# greatest_product = 1
 
-			if product > greatest_product:
-				greatest_product = product 
+	# # rows ~ O(n^2)
+	# for row in matrix:
+	# 	i = 0
+	# 	while i < len(row) - 3:
+	# 		product = reduce(lambda x, y: x*y, row[i:i+4])
 
-			i = end + 1
-			end = i + 3
-			product = 1
+	# 		if product > greatest_product:
+	# 			greatest_product = product
+	# 		product = 1
+	# 		i += 1
 
-	# diagonal /
-	for i in xrange(3, 20): # column
-		product = 1
-		# 0 3
-		# 1 2
-		# 2 1
-		# 3 0
+	# # columns. O(n^3)
+	# for column in xrange(20):
+	# 	i = 0
+	# 	end = i + 3
 
-		x_start = 0
-		y_start = i
-		x = 0
-		y = 0
-		x_end = x + 3
-		y_end = y - 3
+	# 	while i < 20 - 3: # all the off-by-one errors
 
-		while y < 19-3:
+	# 		while i < end: 
+	# 			product *= matrix[i][column]
+	# 			i += 1
 
-			while x <= x_end:
-				product *= matrix[x][y]
-				x += 1
-				y -= 1
+	# 		if product > greatest_product:
+	# 			greatest_product = product 
 
-			if product > greatest_product:
-				greatest_product = product 
+	# 		i = end + 1
+	# 		end = i + 3
+	# 		product = 1
 
-			x = x_start + 1
-			x_start += 1
-			y = y_start 
+	# # diagonal /
+	# for i in xrange(3, 20): # column
+	# 	product = 1
+	# 	# 0 3
+	# 	# 1 2
+	# 	# 2 1
+	# 	# 3 0
+
+	# 	x_start = 0
+	# 	y_start = i
+	# 	x = 0
+	# 	y = 0
+	# 	x_end = x + 3
+	# 	y_end = y - 3
+
+	# 	while y < 19-3:
+
+	# 		while x <= x_end:
+	# 			product *= matrix[x][y]
+	# 			x += 1
+	# 			y -= 1
+
+	# 		if product > greatest_product:
+	# 			greatest_product = product 
+
+	# 		x = x_start + 1
+	# 		x_start += 1
+	# 		y = y_start 
 
 	# diagnoal \
 
 
 
 
-	return greatest_product
+	# return greatest_product
 
-print greatest_product(grid)
+print create_matrix(test, 3)
+
+print greatest_product(test, 2)
