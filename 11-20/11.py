@@ -69,7 +69,7 @@ def greatest_product(matrix, prod_size):
 
 		return greatest_product
 
-	def greatest_column_product(matrix, prod_size):
+	def greatest_column_product(matrix, prod_size): # O(n^3)
 		greatest_product = 0
 
 		for column in xrange(len(matrix[0])):
@@ -94,30 +94,36 @@ def greatest_product(matrix, prod_size):
 				product = 1
 
 		return greatest_product
-	
 
-	print 'row product: ', greatest_row_product(matrix, prod_size)
-	print 'column products: ', greatest_column_product(matrix, prod_size)
+	# diagonal \
+	def greatest_right_diagonal(matrix, prod_size):
+		greatest_product = 0
 
+		for i in xrange(len(matrix[0]) - prod_size + 1):
+			print 'i is', i
+			end = len(matrix[0]) - prod_size - 1 # inclusive end
+			i_end = i + prod_size - 1
 
+			while i <= end: # enumerate
+				# find product
+				product = 1
+				while i <= i_end:
+					product *= matrix[i][i]
+					i += 1
+				
+				if product > greatest_product:
+					greatest_product = product
 
-	# # columns. O(n^3)
-	# for column in xrange(20):
-	# 	i = 0
-	# 	end = i + 3
+				print 'product is', product
+				product = 1
+				i += 1
+				i_end += 1
 
-	# 	while i < 20 - 3: # all the off-by-one errors
+		return greatest_product
 
-	# 		while i < end: 
-	# 			product *= matrix[i][column]
-	# 			i += 1
-
-	# 		if product > greatest_product:
-	# 			greatest_product = product 
-
-	# 		i = end + 1
-	# 		end = i + 3
-	# 		product = 1
+	# print 'row product: ', greatest_row_product(matrix, prod_size)
+	# print 'column product: ', greatest_column_product(matrix, prod_size)
+	print 'greatest right product: ', greatest_right_diagonal(matrix, prod_size)
 
 	# # diagonal /
 	# for i in xrange(3, 20): # column
@@ -157,4 +163,4 @@ def greatest_product(matrix, prod_size):
 
 matrix = create_matrix(test, 3)
 
-print greatest_product(matrix, 2)
+greatest_product(matrix, 2)
