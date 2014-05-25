@@ -49,7 +49,27 @@ def create_matrix(grid, n):
 
 	return matrix
 
-def greatest_product(grid, prod_size):
+
+def greatest_product(matrix, prod_size):
+
+	def greatest_row_product(matrix, prod_size):
+		# rows ~ O(n^2)
+
+		greatest_product = 0
+		for row in matrix:
+			i = 0
+			while i <= len(row) - prod_size:
+				product = reduce(lambda x, y: x*y, row[i:i+prod_size])
+
+				if product > greatest_product:
+					greatest_product = product
+				
+				product = 1
+				i += 1
+
+		return greatest_product
+
+	print greatest_row_product(matrix, prod_size)
 
 	pass
 
@@ -57,16 +77,7 @@ def greatest_product(grid, prod_size):
 
 	# greatest_product = 1
 
-	# # rows ~ O(n^2)
-	# for row in matrix:
-	# 	i = 0
-	# 	while i < len(row) - 3:
-	# 		product = reduce(lambda x, y: x*y, row[i:i+4])
 
-	# 		if product > greatest_product:
-	# 			greatest_product = product
-	# 		product = 1
-	# 		i += 1
 
 	# # columns. O(n^3)
 	# for column in xrange(20):
@@ -122,6 +133,6 @@ def greatest_product(grid, prod_size):
 
 	# return greatest_product
 
-print create_matrix(test, 3)
+matrix = create_matrix(test, 3)
 
-print greatest_product(test, 2)
+print greatest_product(matrix, 2)
