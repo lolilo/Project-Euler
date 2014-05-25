@@ -69,13 +69,35 @@ def greatest_product(matrix, prod_size):
 
 		return greatest_product
 
-	print greatest_row_product(matrix, prod_size)
+	def greatest_column_product(matrix, prod_size):
+		greatest_product = 0
 
-	pass
+		for column in xrange(len(matrix[0])):
+			product = 1
+			i = 0
+			i_start = 0
+			i_end = i_start + prod_size - 1 # inclusive end
+			
+			while i_end <= len(matrix[0]) - 1:
 
+				while i <= i_end: # enmerate all products in the column
+					# calculate one product
+					product *= matrix[i][column]
+					i += 1
 
+				if product > greatest_product:
+					greatest_product = product
 
-	# greatest_product = 1
+				i = i_start + 1
+				i_start = i
+				i_end = i_start + prod_size - 1
+				product = 1
+
+		return greatest_product
+	
+
+	print 'row product: ', greatest_row_product(matrix, prod_size)
+	print 'column products: ', greatest_column_product(matrix, prod_size)
 
 
 
