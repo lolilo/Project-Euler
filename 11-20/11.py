@@ -1,4 +1,8 @@
-grid = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+# What is the greatest product of four adjacent numbers in the same direction 
+# (up, down, left, right, or diagonally) in the 20 x 20 grid?
+
+grid = """
+08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
 52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
@@ -20,4 +24,88 @@ grid = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
 
+# make array of arrays -- matrix
+# ennumerate all possiblities and keep track of largest sum in a variable
 
+def greatest_product(grid):
+
+	grid = grid.split()
+	i = 0
+	matrix = []
+
+	# create matrix
+	while i < len(grid):
+		row = grid[i:i+20]
+		for n in xrange(len(row)):
+			row[n] = int(row[n])
+		matrix.append(row) 
+		i += 21
+
+	greatest_product = 1
+
+	# rows ~ O(n^2)
+	for row in matrix:
+		i = 0
+		while i < len(row) - 3:
+			product = reduce(lambda x, y: x*y, row[i:i+4])
+
+			if product > greatest_product:
+				greatest_product = product
+			product = 1
+			i += 1
+
+	# columns. O(n^3)
+	for column in xrange(20):
+		i = 0
+		end = i + 3
+
+		while i < 20 - 3: # all the off-by-one errors
+
+			while i < end: 
+				product *= matrix[i][column]
+				i += 1
+
+			if product > greatest_product:
+				greatest_product = product 
+
+			i = end + 1
+			end = i + 3
+			product = 1
+
+	# diagonal /
+	for i in xrange(3, 20): # column
+		product = 1
+		# 0 3
+		# 1 2
+		# 2 1
+		# 3 0
+
+		x_start = 0
+		y_start = i
+		x = 0
+		y = 0
+		x_end = x + 3
+		y_end = y - 3
+
+		while y < 19-3:
+
+			while x <= x_end:
+				product *= matrix[x][y]
+				x += 1
+				y -= 1
+
+			if product > greatest_product:
+				greatest_product = product 
+
+			x = x_start + 1
+			x_start += 1
+			y = y_start 
+
+	# diagnoal \
+
+
+
+
+	return greatest_product
+
+print greatest_product(grid)
