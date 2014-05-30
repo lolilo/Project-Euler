@@ -26,11 +26,6 @@ grid = """
 # make array of arrays -- matrix
 # ennumerate all possiblities and keep track of largest sum in a variable
 
-test = """
-1 2 3
-4 5 6
-7 8 9"""
-
 # create matrix from number strings in a nxn matrix format
 def create_matrix(grid, n):
 	grid = grid.split() # creates list of num strings
@@ -49,7 +44,7 @@ def create_matrix(grid, n):
 
 	return matrix
 
-
+# prod_size = number of ints to multiply together
 def greatest_product(matrix, prod_size):
 
 	def greatest_row_product(matrix, prod_size):
@@ -99,31 +94,59 @@ def greatest_product(matrix, prod_size):
 	def greatest_right_diagonal(matrix, prod_size):
 		greatest_product = 0
 
-		for i in xrange(len(matrix[0]) - prod_size + 1):
-			print 'i is', i
-			end = len(matrix[0]) - prod_size - 1 # inclusive end
+		for i in xrange(len(matrix[0])):
+			# print 'i is', i
+			end = len(matrix[0]) # inclusive end
 			i_end = i + prod_size - 1
 
 			while i <= end: # enumerate
 				# find product
 				product = 1
-				while i <= i_end:
+				while i <= i_end and i < end:
 					product *= matrix[i][i]
 					i += 1
 				
 				if product > greatest_product:
 					greatest_product = product
 
-				print 'product is', product
+				# print 'product is', product
 				product = 1
 				i += 1
 				i_end += 1
 
 		return greatest_product
 
-	# print 'row product: ', greatest_row_product(matrix, prod_size)
-	# print 'column product: ', greatest_column_product(matrix, prod_size)
+	# diagonal /
+	def greatest_left_diagonal(matrix, prod_size):
+		greatest_product = 0
+
+		for row in xrange(len(matrix[0])):
+			for x in xrange(len(matrix[row])): # for each element in first row
+				# print 'i is', i
+				y = row
+				x_end = x - prod_size 
+
+				# find each product
+				product = 1
+				while x > x_end and y < len(matrix[0]):
+					# print x, y
+					product *= matrix[x][y]
+					x -= 1
+					y += 1
+				
+				if product > greatest_product:
+					greatest_product = product
+
+				# print 'product is', product
+				# print ''
+				product = 1
+
+		return greatest_product
+
+	print 'row product: ', greatest_row_product(matrix, prod_size)
+	print 'column product: ', greatest_column_product(matrix, prod_size)
 	print 'greatest right product: ', greatest_right_diagonal(matrix, prod_size)
+	print 'greatest left product: ', greatest_left_diagonal(matrix, prod_size)
 
 	# # diagonal /
 	# for i in xrange(3, 20): # column
@@ -160,6 +183,12 @@ def greatest_product(matrix, prod_size):
 
 
 	# return greatest_product
+
+test = """
+1 2 3
+4 5 6
+7 8 9"""
+
 
 matrix = create_matrix(test, 3)
 
