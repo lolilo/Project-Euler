@@ -19,7 +19,8 @@ We can see that 28 is the first triangle number to have over five divisors.
 What is the value of the first triangle number to have over five hundred divisors?
 """
 
-def triangle_number_up_to_n(n):
+
+def triangle_number_up_to_n_list(n):
     l = [None] * (n + 1)
     l[0] = 0
     l[1] = 1
@@ -27,7 +28,34 @@ def triangle_number_up_to_n(n):
         l[i] = l[i-1] + i
     return l
 
+def triangle_number_up_to_n(n):
+    curr = 1
+    for i in range(2, n+1):
+        curr += i
+    return curr
+
+# returns number of factors for integer n
+def number_of_factors(n):
+    if n == 1:
+        return 1
+
+    count = 2 # initalize to two -- always divisible by 1 and itself
+    for num in range(2, n/2 + 1):
+        if n % num == 0: 
+            count += 1
+    return count
+
+# return first triangle numbe to have over n divisors
+def first_to_num_factors(n):
+    curr_triangle_number = 1
+    i = 2
+    while number_of_factors(curr_triangle_number) <= n:
+        curr_triangle_number += i
+        i += 1
+    return curr_triangle_number
+
+# print triangle_number_up_to_n_list(10)
 print triangle_number_up_to_n(10)
-
-
+print number_of_factors(28)
+print first_to_num_factors(5)
 
