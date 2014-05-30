@@ -148,48 +148,16 @@ def greatest_product(matrix, prod_size):
 	print 'greatest right product: ', greatest_right_diagonal(matrix, prod_size)
 	print 'greatest left product: ', greatest_left_diagonal(matrix, prod_size)
 
-	# # diagonal /
-	# for i in xrange(3, 20): # column
-	# 	product = 1
-	# 	# 0 3
-	# 	# 1 2
-	# 	# 2 1
-	# 	# 3 0
-
-	# 	x_start = 0
-	# 	y_start = i
-	# 	x = 0
-	# 	y = 0
-	# 	x_end = x + 3
-	# 	y_end = y - 3
-
-	# 	while y < 19-3:
-
-	# 		while x <= x_end:
-	# 			product *= matrix[x][y]
-	# 			x += 1
-	# 			y -= 1
-
-	# 		if product > greatest_product:
-	# 			greatest_product = product 
-
-	# 		x = x_start + 1
-	# 		x_start += 1
-	# 		y = y_start 
-
-	# diagnoal \
-
-
-
-
-	# return greatest_product
+	row = greatest_row_product(matrix, prod_size)
+	col = greatest_column_product(matrix, prod_size)
+	right_diag = greatest_right_diagonal(matrix, prod_size)
+	left_diag = greatest_left_diagonal(matrix, prod_size)
+	return max(row, col, right_diag, left_diag)
 
 test = """
 1 2 3
 4 5 6
 7 8 9"""
 
-
-matrix = create_matrix(test, 3)
-
-greatest_product(matrix, 2)
+matrix = create_matrix(grid, 20)
+print greatest_product(matrix, 4)
