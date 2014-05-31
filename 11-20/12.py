@@ -89,8 +89,8 @@ def first_to_num_factors(n):
 
 # print triangle_number_up_to_n(10)
 # print number_of_factors(28)
-print number_of_factors_recursive(200)
+# print number_of_factors_recursive(200)
 
-# print first_to_num_factors(5)
+print first_to_num_factors(500)
 
 
