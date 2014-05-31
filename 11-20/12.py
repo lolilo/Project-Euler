@@ -19,7 +19,6 @@ We can see that 28 is the first triangle number to have over five divisors.
 What is the value of the first triangle number to have over five hundred divisors?
 """
 
-
 def triangle_number_up_to_n_list(n):
     l = [None] * (n + 1)
     l[0] = 0
@@ -45,7 +44,39 @@ def number_of_factors(n):
             count += 1
     return count
 
-# return first triangle numbe to have over n divisors
+def memoize(f):
+    cache = {}
+    def decorated_function(*args):
+        if cache.get(args):
+            return cache[args]
+        else: 
+            cache[args] = f(*args)
+            return cache[args]
+    return decorated_function
+
+@memoize # I am missing factors with this. For example, for input 200, I miss 4.
+def number_of_factors_recursive(n):
+    if n <= 1: # doesn't handle negative numbers or initial input 1. Could handle this with helper function later.
+        return 0
+
+    num = 2
+    # print n, num
+    # print n%num
+    while n % num != 0:
+        num += 1
+    print n, num
+    return 2 + number_of_factors_recursive(n/num) 
+
+# return first triangle number to have over n divisors
+def first_to_num_factors_recursive(n):
+    curr_triangle_number = 1
+    i = 2
+    while number_of_factors_recursive(curr_triangle_number) <= n:
+        curr_triangle_number += i
+        i += 1
+    return curr_triangle_number
+
+# return first triangle number to have over n divisors
 def first_to_num_factors(n):
     curr_triangle_number = 1
     i = 2
@@ -55,7 +86,11 @@ def first_to_num_factors(n):
     return curr_triangle_number
 
 # print triangle_number_up_to_n_list(10)
-print triangle_number_up_to_n(10)
-print number_of_factors(28)
-print first_to_num_factors(5)
+
+# print triangle_number_up_to_n(10)
+# print number_of_factors(28)
+print number_of_factors_recursive(200)
+
+# print first_to_num_factors(5)
+
 
